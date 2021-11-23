@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, {useEffect, useState} from 'react';
 
+const [setResourceType] = useState([]);
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
         <h1 className="text-6xl font-bold">
           Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
+          <a className="text-blue-600">
             Pokemon Database
           </a>
         </h1>
@@ -23,7 +24,7 @@ export default function Home() {
 
         <button 
           className="text-base font-medium rounded-lg p-3 bg-green-400"
-          onclick={() => setResourceType('result')}>    
+          onClick={() => setResourceType('result')}>    
               Buscar Pokemon
         </button>
       </main>
