@@ -12,6 +12,13 @@ export default function result() {
     }, [resourceType]);
 
     return(
-        <p>Hola</p>
+        <List.Item block key={pokemon.name}>
+            <List.Content>
+                {pokemon.name}
+            </List.Content>
+            <List.Content>
+                {pokemon.url}
+            </List.Content>
+        </List.Item>
     )
 }
