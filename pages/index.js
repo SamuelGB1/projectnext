@@ -1,7 +1,15 @@
 import Head from 'next/head'
 import React, {useEffect, useState} from 'react';
 
-const [setResourceType] = useState([]);
+const [resourceType,setResourceType] = useState('result');
+const [item, setItems] = useState([]);
+
+
+useEffect(() => {
+  fetch(' https://pokeapi.co/api/v2/pokemon/?limit=100&offset=40/${resourceType}')
+  .then(response => response.json())
+  .then(json => setItems(json))
+}, [resourceType]);
 
 export default function Home() {
   return (
@@ -27,6 +35,15 @@ export default function Home() {
           onClick={() => setResourceType('result')}>    
               Buscar Pokemon
         </button>
+
+        <List.Item block key={pokemon.name}>
+            <List.Content>
+                {pokemon.name}
+            </List.Content>
+            <List.Content>
+                {pokemon.url}
+            </List.Content>
+        </List.Item>
       </main>
         
     </div>
