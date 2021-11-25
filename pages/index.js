@@ -37,15 +37,12 @@ export default function Home() {
           onClick={() => setResourceType('result')}>    
               Buscar Pokemon
         </button>
-
-        <List.Item block key={pokemon.name}>
-            <List.Content>
-                {pokemon.name}
-            </List.Content>
-            <List.Content>
-                {pokemon.url}
-            </List.Content>
-        </List.Item>
+        <h1 className="text-9x1">{resourceType}</h1>
+        <ul className="my-10">
+          {item.map((item, index) => {
+            return <li key={index} className="my-10 bg-gray-400">{JSON.stringify(item)}</li>
+          })}
+        </ul>
       </main>
         
     </div>
