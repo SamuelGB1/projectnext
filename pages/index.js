@@ -1,17 +1,19 @@
 import Head from 'next/head'
 import React, {useEffect, useState} from 'react';
 
-const [resourceType,setResourceType] = useState('result');
-const [item, setItems] = useState([]);
 
 
-useEffect(() => {
-  fetch(' https://pokeapi.co/api/v2/pokemon/?limit=100&offset=40/${resourceType}')
+export default function Home() {
+
+  const [resourceType,setResourceType] = useState();
+  const [item, setItems] = useState([]);
+
+  useEffect(() => {
+  fetch(`https://api.fbi.gov/wanted/v1/list'${resourceType}`)
   .then(response => response.json())
   .then(json => setItems(json))
 }, [resourceType]);
 
-export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
