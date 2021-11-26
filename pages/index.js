@@ -9,7 +9,7 @@ export default function Home() {
   const [item, setItems] = useState([]);
 
   useEffect(() => {
-  fetch(`https://api.fbi.gov/wanted/v1/list'${resourceType}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon/?limit=100&offset=40'${resourceType}`)
   .then(response => response.json())
   .then(json => setItems(json))
 }, [resourceType]);
@@ -39,7 +39,7 @@ export default function Home() {
         </button>
         <h1 className="text-9x1">{resourceType}</h1>
         <ul className="my-10">
-          {item.map((item, index) => {
+          {items.map((item, index) => {
             return <li key={index} className="my-10 bg-gray-400">{JSON.stringify(item)}</li>
           })}
         </ul>
