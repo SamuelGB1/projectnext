@@ -1,18 +1,36 @@
 import Head from 'next/head'
 import React, {useEffect, useState} from 'react';
-
-
+import dynamic from 'next/dynamic';
 
 export default function Home() {
 
-  const [resourceType,setResourceType] = useState();
-  const [item, setItems] = useState([]);
+  const [numero, setNumero] = useState("0");
+  const [mxpokedex, setMxpokedex] = useState("1");
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-  fetch(`https://pokeapi.co/api/v2/pokemon/?limit=100&offset=40'${resourceType}`)
+
+  window.addEventListener("click", evento);
+  fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${mxpokedex}&offset=${numero}`)
   .then(response => response.json())
   .then(json => setItems(json))
-}, [resourceType]);
+}, [numero, mxpokedex]);
+
+  const dinamico = dynamic(() => import('../components/dinamic/useEffectComp'), {
+     ssr: false,
+   });
+
+  const evento = () => {
+    console.log('Funciona')
+  }  
+
+  const data = items["results"];
+
+  let mostrar = "";
+
+  for(const i in data) {
+    mostrar = mostrar + data[i]["name"] + " ";
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -28,21 +46,39 @@ export default function Home() {
             Pokemon Database
           </a>
         </h1>
-        <input className="border-radius: 0.125rem border-color: currentColor disabled:opacity-75" 
         
-        type="text"></input>
+        <form>
+          <input className="border-radius: 0.125rem border-color: currentColor disabled:opacity-75" 
+          
+          type="text" placeholder="Inserte número de la Pokedex" name="pokedex" onChange={event => setNumero(event.target.value)}>
 
-        <button 
-          className="text-base font-medium rounded-lg p-3 bg-green-400"
-          onClick={() => setResourceType('result')}>    
-              Buscar Pokemon
-        </button>
-        <h1 className="text-9x1">{resourceType}</h1>
-        <ul className="my-10">
-          {items.map((item, index) => {
-            return <li key={index} className="my-10 bg-gray-400">{JSON.stringify(item)}</li>
-          })}
-        </ul>
+          </input>
+
+          <br></br>
+          <br></br>
+
+          <input className="border-radius: 0.125rem border-color: currentColor disabled:opacity-75" 
+          
+          type="text" placeholder="Inserte el número máximo de Pokemon" name="maxPoke" onChange={event => setMxpokedex(event.target.value)}>
+            
+          </input>
+
+          <br></br>
+          <br></br>
+
+          {/* <button 
+            className="text-base font-medium rounded-lg p-3 bg-green-400"
+            onClick={() => setResourceType('result')}>    
+                Buscar Pokemon
+          </button> */}
+        </form>
+
+       
+        <h1 className="text-9x1">{}</h1>
+        <div>
+          <p>{mostrar}</p>
+        </div>
+        <dinamico />
       </main>
         
     </div>
